@@ -27,7 +27,8 @@
                                     :asset-path "js/compiled/devcards_out"
                                     :output-to  "resources/public/js/compiled/jamatodo_devcards.js"
                                     :output-dir "resources/public/js/compiled/devcards_out"
-                                    :source-map-timestamp true }}
+                                    :source-map-timestamp true
+                                    :optimizations nil }}
                        {:id "dev"
                         :source-paths ["src"]
                         :figwheel true
@@ -35,12 +36,15 @@
                                    :asset-path "js/compiled/out"
                                    :output-to  "resources/public/js/compiled/jamatodo.js"
                                    :output-dir "resources/public/js/compiled/out"
-                                   :source-map-timestamp true }}
+                                   :source-map-timestamp true
+                                   :optimizations nil }}
                        {:id "prod"
                         :source-paths ["src"]
                         :compiler {:main       "jamatodo.core"
                                    :asset-path "js/compiled/out"
                                    :output-to  "resources/public/js/compiled/jamatodo.js"
-                                   :optimizations :advanced}}]}
+                                   :optimizations :none
+                                   ;;:optimizations :advanced
+                                   }}]}
 
   :figwheel { :css-dirs ["resources/public/css"] })
