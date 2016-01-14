@@ -1,1 +1,24 @@
-/* jamatodo CSS */
+
+.todo-item {
+
+}
+
+.todo-item .description {
+    display: inline-block;
+    padding: 0 8px;
+}
+
+.todo-item .controls {
+    display: inline-block;
+    opacity: 0.5;
+    transition: opacity 100ms;
+}
+
+.todo-item:hover .controls {
+    opacity: 1;
+}
+
+.todo-item.completed .description {
+    text-decoration: line-through;
+    color: gray;
+}

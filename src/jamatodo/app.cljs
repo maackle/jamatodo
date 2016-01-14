@@ -5,7 +5,8 @@
 
 (def initial-data
   {:todos [{:todo/id 1
-            :todo/description "funky"}]})
+            :todo/description "funky"
+            :todo/completed? false}]})
 
 (def Root components/App)
 
