@@ -10,16 +10,18 @@
   "Poor man's UUID generator"
   [] (rand-int 99999999))
 
-(def state-stack (atom ()))
+(def state-history (atom {:stack ()}))
 
 (defn- push-state! [state description]
+  (swap! state-history update :stack conj @state)
   (swap! state assoc :undo-description description)
-  (swap! state-stack conj @state))
+  )
 
 (defn- pop-state! []
-  (let [st @state-stack]
-    (swap! state-stack rest)
-    (first st)))
+  (let [st @state-history]
+    (when (-> st :stack count (> 0))
+      (swap! state-history update :stack rest))
+    (first (:stack st))))
 
 (defmulti read om/dispatch)
 

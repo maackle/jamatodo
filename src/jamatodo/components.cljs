@@ -45,7 +45,8 @@
                 []
                 (let [{data :edit-data} (om/get-state this)]
                   (handle-cancel-edit)
-                  (om/transact! this `[(todo/update ~data)])))
+                  (om/transact! this `[(todo/update ~data)
+                                       :undo-description])))
 
               (handle-change
                 [e] (om/update-state! this assoc-in [:edit-data :todo/description] (e-value e)))
@@ -108,8 +109,11 @@
          [:div.top
           [:input.new-task {:type "text"
                             :value (:todo/description new-task)
-                            :onChange (fn [e] (om/update-state! this assoc-in [:new-task :todo/description] (e-value e)))}]
-          [:button {:onClick handle-new-task}
+                            :onChange (fn [e] (om/update-state! this assoc-in [:new-task :todo/description] (e-value e)))
+                            :onKeyDown (fn [e] (when (= 13 (.. e -keyCode))
+                                                 (handle-new-task e)))}]
+          [:button {:onClick handle-new-task
+                    :disabled (-> new-task :todo/description empty?)}
            "New Task"]]
          [:div.todo-list
           [:h2 "to do"]

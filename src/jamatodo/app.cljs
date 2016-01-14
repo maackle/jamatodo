@@ -8,10 +8,10 @@
 (def sample-tasks
   ["do dishes"
    "do the hustle"
-   "find 12 eggs"
+   "hunt for eggs"
    ])
 
-(def initial-data
+(defonce initial-data
   (letfn [(maker [id desc]
                  {:todo/id id
                   :todo/description desc
