@@ -4,6 +4,15 @@
   (:require-macros
     [jamatodo.macros :refer [inspect]]))
 
+(defn input-updater
+  [& args]
+  (fn [e]
+    (let [v (.. e -target -value)
+          args (conj args v)]
+      (apply om/update-state! args))))
+
+(def e-value #(.. % -target -value))
+
 (defui TodoItem
 
   static om/Ident
@@ -23,8 +32,7 @@
   (render
     [this]
     (let [{:keys [todo/id todo/description todo/completed?] :as props} (om/props this)
-          {:keys [editing? edit-data]} (om/get-state this)
-          className (if completed? "todo-item completed" "todo-item")]
+          {:keys [editing? edit-data]} (om/get-state this)]
       (letfn [(begin-edit
                 [] (om/update-state! this assoc
                                       :editing? true
@@ -40,7 +48,7 @@
                   (om/transact! this `[(todo/update ~data)])))
 
               (handle-change
-                [e] (om/update-state! this assoc-in [:edit-data :todo/description] (.. e -target -value)))
+                [e] (om/update-state! this assoc-in [:edit-data :todo/description] (e-value e)))
 
               (handle-remove
                 [] (om/transact! this `[(todo/delete ~{:todo/id id}) :todos]))
@@ -50,7 +58,9 @@
                 (. e preventDefault)
                 (om/transact! this `[(todo/toggle-check) :todos]))]
       (sab/html
-        [:div {:class className}
+        [:div {:class (if completed?
+                        "todo-item completed"
+                        "todo-item")}
          [:input {:type "checkbox"
                   :checked completed?
                   :onClick handle-checkbox}]
@@ -77,13 +87,45 @@
 (defui App
   static om/IQuery
   (query [_]
-         [{:todos (om/get-query TodoItem)}])
+         [:undo-description
+          {:todos (om/get-query TodoItem)}
+          {:todos/archived (om/get-query TodoItem)}])
 
   Object
+  (getInitialState
+    [_]
+    {:new-task ""})
+
   (render
     [this]
-    (let [{:keys [todos]} (om/props this)]
-      (sab/html
-        [:div.todo-list
-         (map make-TodoItem todos)] )
+    (let [{:keys [todos todos/archived undo-description]} (om/props this)
+          {:keys [new-task]} (om/get-state this)]
+      (letfn [(handle-new-task [e]
+                               (om/transact! this `[(todos/add ~new-task)])
+                               (om/update-state! this assoc :new-task {}))]
+       (sab/html
+        [:div.app-container
+         [:div.top
+          [:input.new-task {:type "text"
+                            :value (:todo/description new-task)
+                            :onChange (fn [e] (om/update-state! this assoc-in [:new-task :todo/description] (e-value e)))}]
+          [:button {:onClick handle-new-task}
+           "New Task"]]
+         [:div.todo-list
+          [:h2 "to do"]
+          (map make-TodoItem todos)]
+         [:div
+          [:button {:onClick #(om/transact! this `[(todos/archive)])
+                    :disabled (-> (filter :todo/completed? todos) count zero?)}
+           "archive completed tasks"]
+          (when undo-description
+            [:button {:onClick #(om/transact! this `[(todos/undo)])
+                      :disabled (not undo-description)}
+             (str "undo " (inspect undo-description))])]
+         [:div.archive
+          (when-not (empty? archived)
+            [:h2 "archived"])
+          (for [todo archived]
+            [:li (:todo/description todo)])]
+         ] ))
       )))

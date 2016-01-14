@@ -1,6 +1,23 @@
 
-.todo-item {
+input[type=text] {
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
 
+button {
+    padding: 7px;
+    border-radius: 5px;
+    background: white;
+    font-size: 12px;
+}
+.todo-item {
+    margin: 5px auto;
+}
+
+.todo-item input[type=checkbox] {
+    padding: 10px;
+    transform: scale(1.75);
 }
 
 .todo-item .description {
@@ -10,7 +27,7 @@
 
 .todo-item .controls {
     display: inline-block;
-    opacity: 0.5;
+    opacity: 0;
     transition: opacity 100ms;
 }
 
