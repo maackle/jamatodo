@@ -25,7 +25,9 @@
          [:span description]
          [:div.controls
           [:button "✎"]
-          [:button "×"]]]))))
+          [:button {:onClick #(om/transact! this `[(todo/delete ~{:todo/id id})
+                                                   :todos])}
+           "×"]]]))))
 
 (def make-TodoItem (om/factory TodoItem))
 
