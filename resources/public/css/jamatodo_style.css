@@ -1,18 +1,38 @@
-
-input[type=text] {
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 12px;
+html, body {
+    height: 100%;
+    background: #eee;
 }
 
-button {
-    padding: 7px;
-    border-radius: 5px;
-    background: white;
-    font-size: 12px;
+#main-app-area {
+    height: 100%;
 }
+
+.app-container {
+    padding: 20px 40px;
+    max-width: 460px;
+    min-height: 100%;
+    background: #fff;
+}
+
+.title {
+    text-align: center;
+    border-bottom: 1px solid black;
+    margin-bottom: 30px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 300;
+    letter-spacing: 0.1em;
+}
+
+.input-group-btn.floating {
+    display: block;
+}
+
 .todo-item {
-    margin: 5px auto;
+    position: relative;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
 }
 
 .todo-item input[type=checkbox] {
@@ -22,11 +42,14 @@ button {
 
 .todo-item .description {
     display: inline-block;
-    padding: 0 8px;
+    padding: 0 16px;
 }
 
 .todo-item .controls {
-    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
     opacity: 0;
     transition: opacity 100ms;
 }

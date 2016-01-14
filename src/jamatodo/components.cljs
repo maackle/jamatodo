@@ -62,26 +62,33 @@
         [:div {:class (if completed?
                         "todo-item completed"
                         "todo-item")}
-         [:input {:type "checkbox"
-                  :checked completed?
-                  :onClick handle-checkbox}]
-         (if editing?
-           [:input {:value (:todo/description edit-data)
-                    :onChange handle-change}]
-           [:span.description description])
+
          (if editing?
            ;; then
-           [:div.controls
-            [:button {:onClick handle-save-edit}
-             "save"]
-            [:button {:onClick handle-cancel-edit}
-             "cancel"]]
+           [:div
+            [:div.input-group
+             [:input.form-control {:value (:todo/description edit-data)
+                      :onChange handle-change}]
+             [:div.input-group-btn
+              [:button.btn.btn-default {:onClick handle-save-edit}
+               "save"]
+              [:button.btn.btn-default {:onClick handle-cancel-edit}
+               "cancel"]]]
+            ]
            ;; else
-           [:div.controls
-            [:button {:onClick begin-edit}
-             "edit"]
-            [:button {:onClick handle-remove}
-             "×"]])])))))
+           [:span
+            [:input {:type "checkbox"
+                     :checked completed?
+                     :onClick handle-checkbox}]
+            [:span.description description]
+            [:div.controls
+             [:div.input-group-btn.floating
+              [:button.btn.btn-default {:onClick begin-edit}
+               "edit"]
+              [:button.btn.btn-default {:onClick handle-remove}
+               "×"]]]])
+
+         ])))))
 
 (def make-TodoItem (om/factory TodoItem))
 
@@ -105,27 +112,34 @@
                                (om/transact! this `[(todos/add ~new-task)])
                                (om/update-state! this assoc :new-task {}))]
        (sab/html
-        [:div.app-container
-         [:div.top
-          [:input.new-task {:type "text"
+        [:div.app-container.container
+         [:h1.title "JAMATODO"]
+         [:div.input-group
+          [:input.form-control {:type "text"
+                            :placeholder "What needs doing?"
                             :value (:todo/description new-task)
                             :onChange (fn [e] (om/update-state! this assoc-in [:new-task :todo/description] (e-value e)))
                             :onKeyDown (fn [e] (when (= 13 (.. e -keyCode))
                                                  (handle-new-task e)))}]
-          [:button {:onClick handle-new-task
+          [:div.input-group-btn
+           [:button.btn.btn-default {:onClick handle-new-task
                     :disabled (-> new-task :todo/description empty?)}
-           "New Task"]]
+           "Create Task"]]]
+
          [:div.todo-list
           [:h2 "to do"]
           (map make-TodoItem todos)]
-         [:div
-          [:button {:onClick #(om/transact! this `[(todos/archive)])
+
+         [:div.input-group-btn {:style {:text-align "center"
+                                        :padding "30px 0"}}
+          [:button.btn.btn-default {:onClick #(om/transact! this `[(todos/archive)])
                     :disabled (-> (filter :todo/completed? todos) count zero?)}
            "archive completed tasks"]
-          (when undo-description
-            [:button {:onClick #(om/transact! this `[(todos/undo)])
+
+            [:button.btn.btn-default {:onClick #(om/transact! this `[(todos/undo)])
                       :disabled (not undo-description)}
-             (str "undo " (inspect undo-description))])]
+             (str "undo " undo-description)]]
+
          [:div.archive
           (when-not (empty? archived)
             [:h2 "archived"])
