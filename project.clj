@@ -43,8 +43,7 @@
                         :compiler {:main       "jamatodo.core"
                                    :asset-path "js/compiled/out"
                                    :output-to  "resources/public/js/compiled/jamatodo.js"
-                                   :optimizations :none
-                                   ;;:optimizations :advanced
+                                   :optimizations :advanced
                                    }}]}
 
   :figwheel { :css-dirs ["resources/public/css"] })

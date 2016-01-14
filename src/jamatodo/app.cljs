@@ -6,16 +6,19 @@
     [jamatodo.macros :refer [inspect]]))
 
 (def sample-tasks
-  ["do dishes"
-   "do the hustle"
-   "hunt for eggs"
+  [["create todo app" true]
+   ["implement undo" true]
+   ["write README" true]
+   ["schedule interview" false]
+   ["get hired" false]
+
    ])
 
 (defonce initial-data
-  (letfn [(maker [id desc]
+  (letfn [(maker [id [desc completed?]]
                  {:todo/id id
                   :todo/description desc
-                  :todo/completed? false})]
+                  :todo/completed? completed?})]
     {:todos (into []
                   (map maker (range) sample-tasks))
      :todos/archived []}))

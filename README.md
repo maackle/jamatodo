@@ -15,9 +15,13 @@ To view the built app, set up a server to serve from `resources/public` and have
 1. Install leningen (OS X: `brew install leiningen`)
 
 2. Run figwheel
-```sh
-$ lein figwheel dev
-```
+
+    ```sh
+    $ lein figwheel dev
+    ```
 
 3. Go to http://localhost:3449
 
+## Online demo
+
+An example is online at http://michaeldougherty.info/jamatodo/
