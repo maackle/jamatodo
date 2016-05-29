@@ -1,10 +1,10 @@
-(ns jamatodo.parsing
+(ns tudu.parsing
   (:require
     [om.next :as om :refer-macros [defui]]
     [cljs.pprint :refer [pprint]]
-    [jamatodo.components :as components])
+    [tudu.components :as components])
   (:require-macros
-    [jamatodo.macros :refer [inspect]]))
+    [tudu.macros :refer [inspect]]))
 
 (defn gen-uuid
   "Poor man's UUID generator"

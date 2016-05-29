@@ -1,4 +1,4 @@
-(defproject jamatodo "0.1.0-SNAPSHOT"
+(defproject tudu "0.1.0-SNAPSHOT"
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -23,26 +23,26 @@
               :builds [{:id "devcards"
                         :source-paths ["src"]
                         :figwheel { :devcards true } ;; <- note this
-                        :compiler { :main       "jamatodo.cards"
+                        :compiler { :main       "tudu.cards"
                                     :asset-path "js/compiled/devcards_out"
-                                    :output-to  "resources/public/js/compiled/jamatodo_devcards.js"
+                                    :output-to  "resources/public/js/compiled/tudu_devcards.js"
                                     :output-dir "resources/public/js/compiled/devcards_out"
                                     :source-map-timestamp true
                                     :optimizations nil }}
                        {:id "dev"
                         :source-paths ["src"]
                         :figwheel true
-                        :compiler {:main       "jamatodo.core"
+                        :compiler {:main       "tudu.core"
                                    :asset-path "js/compiled/out"
-                                   :output-to  "resources/public/js/compiled/jamatodo.js"
+                                   :output-to  "resources/public/js/compiled/tudu.js"
                                    :output-dir "resources/public/js/compiled/out"
                                    :source-map-timestamp true
                                    :optimizations nil }}
                        {:id "prod"
                         :source-paths ["src"]
-                        :compiler {:main       "jamatodo.core"
+                        :compiler {:main       "tudu.core"
                                    :asset-path "js/compiled/out"
-                                   :output-to  "resources/public/js/compiled/jamatodo.js"
+                                   :output-to  "resources/public/js/compiled/tudu.js"
                                    :optimizations :advanced
                                    }}]}
 

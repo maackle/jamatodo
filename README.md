@@ -1,4 +1,4 @@
-# jamatodo
+# tudu
 
 To view the built app, set up a server to serve from `resources/public` and have a look at `index.html`
 
@@ -24,4 +24,4 @@ To view the built app, set up a server to serve from `resources/public` and have
 
 ## Online demo
 
-An example is online at http://michaeldougherty.info/jamatodo/
+An example is online at http://michaeldougherty.info/tudu/

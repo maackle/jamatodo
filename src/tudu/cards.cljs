@@ -1,11 +1,11 @@
-(ns jamatodo.cards
+(ns tudu.cards
   (:require
     [om.next :as om :refer-macros [defui ui]]
     [om.dom :as dom :include-macros true]
     [sablono.core :as sab :include-macros true]
-    [jamatodo.components :as components]
-    [jamatodo.parsing :as parsing]
-    [jamatodo.app :as app])
+    [tudu.components :as components]
+    [tudu.parsing :as parsing]
+    [tudu.app :as app])
   (:require-macros
     [devcards.core :as dc :refer [defcard deftest defcard-om-next]]))
 

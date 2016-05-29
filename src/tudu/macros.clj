@@ -1,4 +1,4 @@
-(ns jamatodo.macros)
+(ns tudu.macros)
 ;; from https://github.com/shaunlebron/How-To-Debug-CLJS/blob/master/src/example/macros.clj
 
 (defn- inspect-1

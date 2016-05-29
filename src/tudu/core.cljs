@@ -1,13 +1,13 @@
-(ns jamatodo.core
+(ns tudu.core
   (:require
    [om.next :as om :include-macros true]
    [om.dom :as dom]
    [sablono.core :as sab :include-macros true]
-   [jamatodo.app :as app]
-   [jamatodo.components :as components]
+   [tudu.app :as app]
+   [tudu.components :as components]
    )
   (:require-macros
-    [jamatodo.macros :refer [inspect]]
+    [tudu.macros :refer [inspect]]
     [devcards.core :as dc :refer [defcard deftest]]))
 
 

@@ -1,9 +1,9 @@
-(ns jamatodo.app
+(ns tudu.app
   (:require [om.next :as om :refer-macros [defui]]
-            [jamatodo.components :as components]
-            [jamatodo.parsing :refer [parser]])
+            [tudu.components :as components]
+            [tudu.parsing :refer [parser]])
   (:require-macros
-    [jamatodo.macros :refer [inspect]]))
+    [tudu.macros :refer [inspect]]))
 
 (def sample-tasks
   [["create todo app" true]

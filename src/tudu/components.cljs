@@ -1,8 +1,8 @@
-(ns jamatodo.components
+(ns tudu.components
   (:require [om.next :as om :refer-macros [defui]]
             [sablono.core :as sab])
   (:require-macros
-    [jamatodo.macros :refer [inspect]]))
+    [tudu.macros :refer [inspect]]))
 
 (defn input-updater
   [& args]
@@ -113,7 +113,7 @@
                                (om/update-state! this assoc :new-task {}))]
        (sab/html
         [:div.app-container.container
-         [:h1.title "JAMATODO"]
+         [:h1.title "tudu"]
          [:div.input-group
           [:input.form-control {:type "text"
                             :placeholder "What needs doing?"
